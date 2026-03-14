@@ -19,7 +19,6 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Publisher::class, 'publisher_id');
             $table->string('title');
             $table->string('isbn');
             $table->text('description');

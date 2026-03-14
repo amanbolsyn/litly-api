@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Provider;
+use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -23,7 +23,7 @@ return new class extends Migration
         Schema::create('user_roles', function (Blueprint $table) {
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Role::class, 'role_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Provider::class, 'provider_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Organization::class, 'provider_id')->nullable()->constrained()->cascadeOnDelete();
             $table->primary(['user_id', 'role_id']);
         });
     }

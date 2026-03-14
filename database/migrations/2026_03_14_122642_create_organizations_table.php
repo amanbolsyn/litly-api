@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Book;
-use App\Models\Provider;
+use App\Models\Organization;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('providers', function (Blueprint $table) {
+        Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('provider');
             $table->string('city');
@@ -24,10 +24,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('book_providers', function (Blueprint $table) {
+        Schema::create('book_organization', function (Blueprint $table) {
             $table->foreignIdFor(Book::class, 'book_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Provider::class, 'provider_id')->constrained()->cascadeOnDelete();
-            $table->primary(['book_id', 'provider_id']);
+            $table->foreignIdFor(Organization::class, 'organization_id')->constrained()->cascadeOnDelete();
+            $table->integer('quantity')->default(0); 
+            $table->primary(['book_id', 'organization_id']);
         });
     }
 
@@ -36,7 +37,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('providers');
-        Schema::dropIfExists('book_providers');
+        Schema::dropIfExists('organizations');
+        Schema::dropIfExists('book_organizations');
     }
 };
