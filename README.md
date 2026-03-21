@@ -14,33 +14,35 @@ Go to the cloned directory
 cd litly-api/
 ```
 
-Install all the dependencies 
+Build docker containers
 ```bash
-composer install
-npm install
+make install
 ```
 
-Create local env file
+Start docker containers
 ```bash
-cp .env.example .env
+make run
 ```
 
-Run the composer
+Stop docker containers
 ```bash
-composer run dev
+make down
 ```
 
-Generate application key
+Run new db migrations 
 ```bash
-php artisan key:generate
+make migrate
 ```
 
-Migrate and seed the database
+Seed the database
 ```
-php artisan migrate:fresh --seed
+make seed
 ```
 
-Change APP_TIMZONE to sutiable timezone inside .env file
+ Run already migreated migrations
+```
+make fresh
+```
 
 ## Roles 
 
