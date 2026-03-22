@@ -2,64 +2,41 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\Api\v1\StoreSessionRequest;
+use App\Models\User;
 use App\Models\UserResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SessionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(StoreSessionRequest $request)
     {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        $user = User::firstWhere('email', $request["email"]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        if (!Hash::check($request["password"], $user->password)) {
+            return response()->json([
+                "message" => "Invalid credentials"
+            ], 401);
+        }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show()
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit()
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request)
-    {
-        //
+        return response()->json([
+            "message" => "authenticated",
+            "token" => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
+            "data" => []
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
-        //
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            "message" => "logged out"
+        ], 200);
     }
 }

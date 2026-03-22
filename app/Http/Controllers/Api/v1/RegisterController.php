@@ -2,63 +2,27 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\Api\v1\RegisterUserRequest;
+use App\Http\Resources\Api\v1\UserResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RegisterUserRequest $request)
     {
-        //
-    }
+        $userAttributes = collect($request)->toArray();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        $user = User::create($userAttributes);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json([
+            "message" => "registered",
+            'token' =>  $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken, 
+            'data' => new UserResource($user), 
+        ]);
     }
 }
