@@ -15,7 +15,7 @@ class RegisterController extends Controller
      */
     public function store(RegisterUserRequest $request)
     {
-        $userAttributes = collect($request)->toArray();
+        $userAttributes = collect($request->only('fullname', 'email', 'password'))->toArray();
 
         $user = User::create($userAttributes);
 

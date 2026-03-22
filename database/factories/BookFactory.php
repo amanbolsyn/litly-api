@@ -47,14 +47,13 @@ class BookFactory extends Factory
             $organizations = Organization::inRandomOrder()
                 ->limit(rand(1, 5))
                 ->pluck('id');
-            $book->organizations()->attach($organizations); 
-            // $book->organizations()->syncWithoutDetaching([
-            //     $organizations->mapWithKeys(function ($id) {
-            //         return [
-            //             $id => ['quantity' => fake()->numberBetween(1, 10)]
-            //         ];
-            //     })->toArray()
-            // ]);
+            $book->organizations()->attach(
+                $organizations->mapWithKeys(function ($id) {
+                    return [
+                        $id => ['quantity' => fake()->numberBetween(1, 10)]
+                    ];
+                })
+            );
 
             $bookCollections = Collection::inRandomOrder()
                 ->limit(rand(1, 6))
