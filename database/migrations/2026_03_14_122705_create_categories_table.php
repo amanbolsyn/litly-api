@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('book_categories', function (Blueprint $table) {
+        Schema::create('book_category', function (Blueprint $table) {
             $table->foreignIdFor(Book::class, 'book_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Category::class, 'category_id')->constrained()->cascadeOnDelete();
             $table->primary(['book_id', 'category_id']);
@@ -32,6 +32,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('book_categories');
+        Schema::dropIfExists('book_category');
     }
 };

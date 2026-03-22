@@ -20,12 +20,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Role::class, 'role_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Organization::class, 'provider_id')->nullable()->constrained()->cascadeOnDelete();
-            $table->primary(['user_id', 'role_id']);
+            $table->foreignIdFor(Organization::class, 'organization_id')->nullable()->constrained()->cascadeOnDelete();
         });
+
+        
     }
 
     /**
@@ -34,5 +36,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('roles');
+        Schema::dropIfExists('role_user'); 
     }
 };

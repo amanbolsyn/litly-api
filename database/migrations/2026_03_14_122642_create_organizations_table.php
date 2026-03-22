@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-            $table->string('provider');
+            $table->string('organization');
             $table->string('city');
             $table->string('address');
             $table->boolean('allow_purchase')->default(false);
@@ -25,10 +25,10 @@ return new class extends Migration
         });
 
         Schema::create('book_organization', function (Blueprint $table) {
+            $table->primary(['book_id', 'organization_id']);
             $table->foreignIdFor(Book::class, 'book_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Organization::class, 'organization_id')->constrained()->cascadeOnDelete();
-            $table->integer('quantity')->default(0); 
-            $table->primary(['book_id', 'organization_id']);
+            $table->integer('quantity')->default(0);
         });
     }
 
@@ -38,6 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('organizations');
-        Schema::dropIfExists('book_organizations');
+        Schema::dropIfExists('book_organization');
     }
 };

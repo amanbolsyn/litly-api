@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('description');
             $table->date('publication_year');
             $table->string('cover')->nullable();
+            $table->foreignIdFor(Publisher::class, 'publisher_id');
             $table->timestamps();
         });
 

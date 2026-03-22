@@ -14,13 +14,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->primary(['book_id', 'cart_id']);
+            $table->id();
             $table->foreignIdFor(Cart::class, 'cart_id');
             $table->foreignIdFor(Book::class, 'book_id');
             $table->string('status');
             $table->string('order_type');
-            $table->date('due_at');
+            $table->date('due_date');
             $table->date('returned_at')->nullable();
+            $table->timestamps(); 
         });
     }
 

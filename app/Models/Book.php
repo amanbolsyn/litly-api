@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
+    use HasFactory;
+
+    protected $fillable = ['title', 'isbn', 'description', 'publication_year'];
 
     public function orders(): HasMany
     {
@@ -32,5 +36,10 @@ class Book extends Model
     public function publishers(): BelongsToMany
     {
         return $this->belongsToMany(Publisher::class);
+    }
+
+    public function collections(): BelongsToMany
+    {
+        return $this->belongsToMany(Collection::class);
     }
 }

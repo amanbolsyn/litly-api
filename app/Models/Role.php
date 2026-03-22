@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Role extends Model
 {
+    
+
+    public const ROLES = ['admin', 'owner', 'support'];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
