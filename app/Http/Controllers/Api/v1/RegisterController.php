@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\Api\v1\RegisterUserRequest;
+use App\Http\Requests\Api\v1\Auth\RegisterUserRequest;
 use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ class RegisterController extends Controller
      */
     public function store(RegisterUserRequest $request)
     {
-        $userAttributes = collect($request)->toArray();
+        $userAttributes = collect($request->only('fullname', 'email', 'password'))->toArray();
 
         $user = User::create($userAttributes);
 

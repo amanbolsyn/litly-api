@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Organization;
 use App\Models\Provider;
 use App\Models\Role;
 use App\Models\User;
@@ -20,6 +21,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignIdFor(Organization::class, 'organization_id')->nullable(); 
             $table->rememberToken();
             $table->timestamps();
         });

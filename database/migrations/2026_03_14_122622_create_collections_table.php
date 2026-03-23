@@ -24,7 +24,7 @@ return new class extends Migration
         });
 
 
-        Schema::create('book_collections', function (Blueprint $table) {
+        Schema::create('book_collection', function (Blueprint $table) {
             $table->foreignIdFor(Book::class, 'book_id');
             $table->foreignIdFor(Collection::class, 'collection_id');
             $table->primary(['book_id', 'collection_id']);
@@ -38,6 +38,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('collections');
-        Schema::dropIfExists('book_collections');
+        Schema::dropIfExists('book_collection');
     }
 };

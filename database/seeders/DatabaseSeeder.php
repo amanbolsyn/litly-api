@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             CartSeeder::class,
             CollectionSeeder::class,
             BookSeeder::class,
-
             OrderSeeder::class,
         ]);
     }

@@ -18,7 +18,7 @@ class CollectionFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' =>  User::inRandomOrder('id'),
+            'user_id' =>  User::inRandomOrder()->value('id'),
             'collection' => fake()->word(3),
             'description' => fake()->paragraph(4),
             'is_public' => fake()->boolean(50),

@@ -24,7 +24,6 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Role::class, 'role_id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(Organization::class, 'organization_id')->nullable()->constrained()->cascadeOnDelete();
         });
 
         

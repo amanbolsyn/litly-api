@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Organization;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -22,32 +23,36 @@ class UserSeeder extends Seeder
         // Create one user
         User::factory()->create([
             'fullname' => "user user",
-            'email' => 'user@astanait.edu.kz',
+            'email' => 'user@example.com',
             'password' => 'User123.',
         ]);
 
         // Create one admin
         $admin = User::factory()->create([
             'fullname' => "admin admin",
-            'email' => 'admin@astanait.edu.kz',
+            'email' => 'admin@example.com',
             'password' => 'Admin123.',
         ]);
 
         $owner = User::factory()->create([
             'fullname' => "owner",
-            'email' => 'owner@astanait.edu.kz',
+            'email' => 'owner@example.com',
             'password' => 'Owner123.',
         ]);
 
         $support = User::factory()->create([
             'fullname' => "suppot",
-            'email' => 'suppot@astanait.edu.kz',
+            'email' => 'support@example.com',
             'password' => 'Suppot123.',
         ]);
 
         $admin->roles()->attach($adminRole->id);
+        $orgz = Organization::inRandomOrder()->first();
+        $admin->organization()->associate($orgz)->save();
+
         $owner->roles()->attach($ownerRole->id);
-        
-        $support->roles()->attach($supportRole->id); 
+        $owner->organization()->associate($orgz)->save();
+
+        $support->roles()->attach($supportRole->id);
     }
 }
