@@ -96,7 +96,7 @@ Route::prefix('v1')->group(function () {
         ->prefix("authors")
         ->group(function () {
             Route::get('/', 'index');
-            Route::get('/', 'show');
+            Route::get('/{author}', 'show');
 
             Route::middleware(["auth:sanctum"])->group(function () {
                 Route::post('/', 'store');

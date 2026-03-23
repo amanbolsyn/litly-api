@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('fullname');
             $table->text('biography')->nullable();
-            $table->string('language')->nullable();
+            $table->json('languages')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_death')->nullable();
             $table->timestamps();
