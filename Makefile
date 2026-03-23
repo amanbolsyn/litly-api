@@ -6,7 +6,7 @@ export
 install: 
 	cp .env.example .env
 	docker compose up -d
-	docker exec ${APP_NAME}-php php artisan migrate
+	docker exec ${APP_NAME}_php php artisan migrate
 
 # start docker containers
 .PHONY: run
@@ -32,7 +32,13 @@ fresh:
 # seed the database
 .PHONY: seed
 seed:
-	docker exec ${APP_NAME}_php php artisan db:seed
+	docker exec ${APP_NAME}_ php php artisan db:seed
+
+.PHONY: rebuild 
+rebuild:
+	docker-compose down
+	docker-compose build --no-cache
+	docker-compose up -d
 
 	
 
