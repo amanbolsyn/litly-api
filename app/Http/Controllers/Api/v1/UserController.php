@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,9 +11,9 @@ class UserController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return UserResource::collection(User::paginate($request->per_page ?? 10));
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController
      */
     public function show(User $user)
     {
-        //
+        return new UserResource($user); 
     }
 
     /**
@@ -36,7 +37,11 @@ class UserController
      */
     public function update(Request $request, User $user)
     {
-        //
+        $userAttr = collect($request->only(['fullname']))->toArray();
+
+        $user->update($userAttr); 
+
+        return new UserResource($user); 
     }
 
     /**
