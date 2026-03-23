@@ -32,13 +32,13 @@ fresh:
 # seed the database
 .PHONY: seed
 seed:
-	docker exec ${APP_NAME}_ php php artisan db:seed
+	docker exec ${APP_NAME}_php php artisan db:seed
 
-.PHONY: rebuild 
-rebuild:
-	docker-compose down
-	docker-compose build --no-cache
-	docker-compose up -d
+# .PHONY: rebuild 
+# rebuild:
+# 	docker-compose down
+# 	docker-compose build --no-cache
+# 	docker-compose up -d
 
 	
 

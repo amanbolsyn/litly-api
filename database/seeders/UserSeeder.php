@@ -36,13 +36,13 @@ class UserSeeder extends Seeder
 
         $owner = User::factory()->create([
             'fullname' => "owner",
-            'email' => 'owner@aexample.com',
+            'email' => 'owner@example.com',
             'password' => 'Owner123.',
         ]);
 
         $support = User::factory()->create([
             'fullname' => "suppot",
-            'email' => 'suppot@example.com',
+            'email' => 'support@example.com',
             'password' => 'Suppot123.',
         ]);
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\Api\v1\StoreSessionRequest;
+use App\Http\Requests\Api\v1\Session\StoreSessionRequest;
 use App\Models\User;
 use App\Models\UserResource;
 use Illuminate\Http\Request;
