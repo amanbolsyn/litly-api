@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\v1\User;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserReqeust extends FormRequest
+class UpdatePublisherRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class UpdateUserReqeust extends FormRequest
     public function rules(): array
     {
         return [
-            "fullname" => ["required", "string", "max:63"],
+            'publisher' => ['required', 'string', 'unique:publishers,publisher']
         ];
     }
 }

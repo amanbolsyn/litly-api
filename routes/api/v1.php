@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\BookController;
 use App\Http\Controllers\Api\v1\CollectionController;
 use App\Http\Controllers\Api\v1\OrganizationController;
+use App\Http\Controllers\Api\v1\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -119,6 +120,22 @@ Route::prefix('v1')->group(function () {
                 Route::get("{organization}/roles", 'getOrganizationRoles');
             });
         });
+
+
+    Route::controller(PublisherController::class)
+        ->prefix("publishers")
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{publisher}', 'show');
+
+            Route::middleware(['auth:sanctum'])
+                ->group(function () {
+                    Route::post('/', 'store');
+                    Route::put('/{publisher}', 'update');
+                    Route::delete('/{publisher}', 'destroy');
+                });
+        });
+
 
     Route::controller(DashboardController::class)
         ->middleware(['auth:sanctum'])

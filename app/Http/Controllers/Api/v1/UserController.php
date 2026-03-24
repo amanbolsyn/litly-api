@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1;
 
+use App\Http\Requests\Api\v1\User\UpdateUserReqeust;
 use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class UserController
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserReqeust $request, User $user)
     {
         $userAttr = collect($request->only(['fullname']))->toArray();
 
