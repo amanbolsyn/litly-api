@@ -19,9 +19,9 @@ class AuthorFactory extends Factory
         return [
                'fullname' => fake()->name(), 
                'biography' => fake()->paragraph(4), 
-               'language' => fake()->word(1), 
                'date_of_birth' => fake()->dateTimeBetween('-150 years', '-50 years'),
                'date_of_death' => fake()->dateTimeBetween('-50 years', 'now'), 
+               'languages' => ['russian', 'english', 'kazakh'], 
         ];
         
     }

@@ -9,7 +9,7 @@ class Role extends Model
 {
     
 
-    public const ROLES = ['admin', 'owner', 'support'];
+    public const ROLES = ['user', 'admin', 'owner', 'support'];
 
     public function users(): BelongsToMany
     {

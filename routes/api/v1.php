@@ -32,8 +32,8 @@ Route::prefix('v1')->group(function () {
         ->middleware(['auth:sanctum'])
         ->prefix("users")
         ->group(function () {
-            Route::get("/", 'index');
-            Route::get("/{user}", 'show');
+            Route::get("/", 'index')->name('user.index');
+            Route::get("/{user}", 'show')->name('user.show');
             Route::put("/{user}", 'update');
             Route::get("/collections", "getUserCollections");
         });
@@ -95,12 +95,12 @@ Route::prefix('v1')->group(function () {
     Route::controller(AuthorController::class)
         ->prefix("authors")
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/', 'show');
+            Route::get('/', 'index')->name('author.index');
+            Route::get('/{author}', 'show')->name('author.show');
 
             Route::middleware(["auth:sanctum"])->group(function () {
-                Route::post('/', 'store');
-                Route::put('/{author}', 'update');
+                Route::post('/', 'store')->name('author.store');
+                Route::put('/{author}', 'update')->name('author.update');;
                 Route::delete('/{author}', 'destroy');
             });
         });
@@ -115,7 +115,7 @@ Route::prefix('v1')->group(function () {
                 Route::post('/', 'store');
                 Route::put('/{organization}', 'update');
                 Route::delete('/{organization}', 'destroy');
-                Route::get("{organization}/carts", 'getOrganizationCarts'); 
+                Route::get("{organization}/carts", 'getOrganizationCarts');
                 Route::get("{organization}/roles", 'getOrganizationRoles');
             });
         });
