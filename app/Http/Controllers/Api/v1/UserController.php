@@ -13,7 +13,7 @@ class UserController
      */
     public function index(Request $request)
     {
-        return UserResource::collection(User::paginate($request->per_page ?? 10));
+        return UserResource::collection(User::with('roles')->paginate($request->per_page ?? 10));
     }
 
     /**

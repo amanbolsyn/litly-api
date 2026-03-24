@@ -21,6 +21,7 @@ class AuthorFactory extends Factory
                'biography' => fake()->paragraph(4), 
                'date_of_birth' => fake()->dateTimeBetween('-150 years', '-50 years'),
                'date_of_death' => fake()->dateTimeBetween('-50 years', 'now'), 
+               'languages' => ['russian', 'english', 'kazakh'], 
         ];
         
     }
