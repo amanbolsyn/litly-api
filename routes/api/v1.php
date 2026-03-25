@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\v1\UserController;
 use App\Http\Controllers\Api\v1\BookController;
 use App\Http\Controllers\Api\v1\CollectionController;
 use App\Http\Controllers\Api\v1\OrganizationController;
+use App\Http\Controllers\Api\v1\PublisherController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -53,8 +54,8 @@ Route::prefix('v1')->group(function () {
     Route::controller(BookController::class)
         ->prefix("books")
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/{book}', 'show');
+            Route::get('/', 'index')->name('book.index');
+            Route::get('/{book}', 'show')->name('book.show');
 
             Route::middleware(['auth:sanctum'])
                 ->group(function () {
@@ -108,8 +109,8 @@ Route::prefix('v1')->group(function () {
     Route::controller(OrganizationController::class)
         ->prefix("organizations")
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/', 'show');
+            Route::get('/', 'index')->name('orgz.index');
+            Route::get('/{organization}', 'show')->name('orgz.show');
 
             Route::middleware(["auth:sanctum"])->group(function () {
                 Route::post('/', 'store');
@@ -119,6 +120,22 @@ Route::prefix('v1')->group(function () {
                 Route::get("{organization}/roles", 'getOrganizationRoles');
             });
         });
+
+
+    Route::controller(PublisherController::class)
+        ->prefix("publishers")
+        ->group(function () {
+            Route::get('/', 'index');
+            Route::get('/{publisher}', 'show');
+
+            Route::middleware(['auth:sanctum'])
+                ->group(function () {
+                    Route::post('/', 'store');
+                    Route::put('/{publisher}', 'update');
+                    Route::delete('/{publisher}', 'destroy');
+                });
+        });
+
 
     Route::controller(DashboardController::class)
         ->middleware(['auth:sanctum'])

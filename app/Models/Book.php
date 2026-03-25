@@ -11,7 +11,13 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'isbn', 'description', 'publication_year'];
+    protected $fillable = [
+        'title',
+        'isbn',
+        'description',
+        'publication_year',
+        'publisher_id'
+    ];
 
     public function orders(): HasMany
     {

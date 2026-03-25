@@ -10,7 +10,10 @@ class Publisher extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['publisher'];
+    protected $fillable = [
+        'publisher',
+        'logo'
+    ];
 
     public function books(): BelongsToMany
     {

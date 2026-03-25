@@ -20,6 +20,7 @@ return new class extends Migration
             $table->json('languages')->nullable();
             $table->date('date_of_birth')->nullable();
             $table->date('date_of_death')->nullable();
+            $table->string('portrait_img')->nullable();
             $table->timestamps();
         });
 

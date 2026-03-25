@@ -19,12 +19,13 @@ class AuthorResource extends JsonResource
             'id' => $this->id,
             'attributes' => [
                 'fullname' => $this->fullname,
+                'date_of_birth' => $this->date_of_birth,
+                'date_of_death' => $this->date_of_death,
+                'portrait' => $this->portrait,
                 $this->mergeWhen(
-                    !$request->routeIs('author.index'),
+                    $request->routeIs('author.show', 'author.store', 'author.update'),
                     [
                         'biography' => $this->biography,
-                        'date_of_birth' => $this->date_of_birth,
-                        'date_of_death' => $this->date_of_death,
                         'languages' => $this->languages
 
                     ]
