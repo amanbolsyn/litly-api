@@ -23,7 +23,7 @@ class AuthorResource extends JsonResource
                 'date_of_death' => $this->date_of_death,
                 'portrait' => $this->portrait,
                 $this->mergeWhen(
-                    !$request->routeIs('author.index'),
+                    $request->routeIs('author.show', 'author.store', 'author.update'),
                     [
                         'biography' => $this->biography,
                         'languages' => $this->languages

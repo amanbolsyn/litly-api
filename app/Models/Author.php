@@ -17,7 +17,7 @@ class Author extends Model
         'languages',
         'date_of_birth',
         'date_of_death', 
-        'portrait'
+        'portrait_img'
     ];
 
 

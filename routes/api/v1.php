@@ -54,8 +54,8 @@ Route::prefix('v1')->group(function () {
     Route::controller(BookController::class)
         ->prefix("books")
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/{book}', 'show');
+            Route::get('/', 'index')->name('book.index');
+            Route::get('/{book}', 'show')->name('book.show');
 
             Route::middleware(['auth:sanctum'])
                 ->group(function () {

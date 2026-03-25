@@ -20,11 +20,10 @@ return new class extends Migration
         Schema::create('books', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('isbn');
+            $table->string('isbn')->nullable();
             $table->text('description');
-            $table->date('publication_year');
-            $table->string('cover')->nullable();
-            $table->foreignIdFor(Publisher::class, 'publisher_id');
+            $table->date('publication_year')->nullabel();
+            $table->foreignIdFor(Publisher::class, 'publisher_id')->nullable();
             $table->timestamps();
         });
 
