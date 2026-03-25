@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api\v1;
 
-use App\Http\Requests\StorePublisherRequest;
-use App\Http\Requests\UpdatePublisherRequest;
-use App\Http\Resources\PublisherResource;
+use App\Http\Requests\Api\v1\Publisher\StorePublisherRequest;
+use App\Http\Requests\Api\v1\Publisher\UpdatePublisherRequest;
+use App\Http\Resources\Api\v1\PublisherResource;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 

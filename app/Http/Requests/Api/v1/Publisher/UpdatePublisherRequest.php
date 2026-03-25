@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\v1\Publisher;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,7 +22,8 @@ class UpdatePublisherRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'publisher' => ['required', 'string', 'unique:publishers,publisher']
+            'publisher' => ['required', 'string', 'unique:publishers,publisher'],
+            'logo' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }

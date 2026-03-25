@@ -50,7 +50,7 @@ class BookFactory extends Factory
             $book->organizations()->attach(
                 $organizations->mapWithKeys(function ($id) {
                     return [
-                        $id => ['quantity' => fake()->numberBetween(1, 10)]
+                        $id => ['stock' => fake()->numberBetween(1, 10)]
                     ];
                 })
             );

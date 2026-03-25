@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Requests\Api\v1\Session\StoreSessionRequest;
+use App\Http\Resources\Api\v1\UserResource;
 use App\Models\User;
-use App\Models\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -24,7 +24,7 @@ class SessionController extends Controller
         return response()->json([
             "message" => "authenticated",
             "token" => $user->createToken('token' . $user->email, ['*'],  now()->plus(minutes: 40))->plainTextToken,
-            "data" => []
+            "data" => new UserResource($user),
         ], 200);
     }
 

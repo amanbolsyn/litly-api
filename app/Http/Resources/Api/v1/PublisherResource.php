@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class RoleResource extends JsonResource
+class PublisherResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +15,12 @@ class RoleResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => "role",
+            'type' => 'publisher',
             'id' => $this->id,
             'attributes' => [
-                'role' => $this->role,
-            ],
+                'publisher' => $this->publisher,
+                'logo' => $this->logo
+            ]
         ];
     }
 }

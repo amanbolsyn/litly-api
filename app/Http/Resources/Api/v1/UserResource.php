@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources\Api\v1;
 
-use App\Http\Resources\RoleResource;
+use App\Http\Resources\Api\v1\RoleResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'attributes' => [
                 'fullname' => $this->fullname,
                 'email' => $this->email,
+                'profile_image' => $this->profile_image, 
                 $this->mergeWhen(
                     $request->routeIs('user.show'),
                     [

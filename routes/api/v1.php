@@ -109,8 +109,8 @@ Route::prefix('v1')->group(function () {
     Route::controller(OrganizationController::class)
         ->prefix("organizations")
         ->group(function () {
-            Route::get('/', 'index');
-            Route::get('/', 'show');
+            Route::get('/', 'index')->name('orgz.index');
+            Route::get('/{organization}', 'show')->name('orgz.show');
 
             Route::middleware(["auth:sanctum"])->group(function () {
                 Route::post('/', 'store');

@@ -11,7 +11,14 @@ class Author extends Model
 
     use HasFactory;
 
-    protected $fillable = ['fullname', 'biography', 'languages', 'date_of_birth', 'date_of_death'];
+    protected $fillable = [
+        'fullname',
+        'biography',
+        'languages',
+        'date_of_birth',
+        'date_of_death', 
+        'portrait'
+    ];
 
 
     protected $casts = [

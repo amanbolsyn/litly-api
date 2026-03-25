@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('allow_purchase')->default(false);
             $table->boolean('allow_borrow')->default(false);
             $table->integer('allow_borrow_days')->default(14);
+            $table->string('logo')->nullable(); 
             $table->timestamps();
         });
 
@@ -29,7 +30,7 @@ return new class extends Migration
             $table->primary(['book_id', 'organization_id']);
             $table->foreignIdFor(Book::class, 'book_id')->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Organization::class, 'organization_id')->constrained()->cascadeOnDelete();
-            $table->integer('quantity')->default(0);
+            $table->integer('stock')->default(0);
         });
 
     }

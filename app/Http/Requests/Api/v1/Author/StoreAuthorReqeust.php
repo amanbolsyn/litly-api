@@ -27,6 +27,7 @@ class StoreAuthorReqeust extends FormRequest
             'language' => ['array', 'max:10'],
             'date_of_birth' => ['date'],
             'date_of_death' => ['date'],
+            'portrait' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }
