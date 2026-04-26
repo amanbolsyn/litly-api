@@ -69,7 +69,7 @@ class RegisterController extends Controller
     public function sendResetLink(Request $request)
     {
         $email = $request->validate([
-            'email' => ['required', 'email', 'ends_with:@astanait.edu.kz', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
         ]);
 
         $user = User::where('email', $email)->first();
@@ -89,7 +89,7 @@ class RegisterController extends Controller
     public function resetPassword(Request $request)
     {
         $request->validate([
-            'email' =>  ['required', 'email', 'ends_with:@astanait.edu.kz', 'max:255'],
+            'email' =>  ['required', 'email', 'max:255'],
             'token' => 'required',
             'password' => ["required", "confirmed", PasswordValidate::min(8)->letters()->numbers()->mixedCase()->symbols()]
         ]);

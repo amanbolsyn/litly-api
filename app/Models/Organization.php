@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Organization extends Model
 {
@@ -18,7 +19,6 @@ class Organization extends Model
         'allow_borrow',
         'allow_purchase',
         'allow_borrow_days',
-        'logo'
     ];
     public function books(): BelongsToMany
     {
@@ -33,5 +33,10 @@ class Organization extends Model
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
+    }
+
+    public function logo(): MorphMany
+    {
+        return $this->morphMany(File::class, 'fileable');
     }
 }
