@@ -19,8 +19,13 @@ Route::prefix('v1')->group(function () {
     Route::controller(RegisterController::class)
         ->group(function () {
             Route::post('/register', 'store');
-            Route::get('/auth/verify-email/{id}/{hash}', 'verifyEmail')->name('verification.verify');
-            Route::post('/auth/resend-verification', 'sendVerificaton');
+
+            Route::get('/verify-email/{id}/{hash}', 'verifyEmail')
+                ->name('verification.verify');
+            Route::post('/resend-verification', 'sendVerification');
+
+            Route::post('/forgot-password',  'sendResetLink');
+            Route::post('/reset-password',  'resetPassword');
         });
 
     Route::controller(SessionController::class)
