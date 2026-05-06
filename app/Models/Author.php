@@ -32,7 +32,7 @@ class Author extends Model
         return $this->belongsToMany(Book::class);
     }
 
-    public function portraits(): MorphMany
+    public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable');
     }

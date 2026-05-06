@@ -6,6 +6,7 @@ use App\Http\Requests\Api\v1\Author\UpdateAuthorRequest;
 use App\Http\Requests\Api\v1\Author\StoreAuthorReqeust;
 use App\Http\Resources\Api\v1\AuthorResource;
 use App\Models\Author;
+use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 
 class AuthorController
@@ -15,13 +16,13 @@ class AuthorController
      */
     public function index(Request $request)
     {
-        return AuthorResource::collection(Author::paginate($request->per_page ?? 10));
+        return AuthorResource::collection(Author::with('files')->paginate($request->per_page ?? 10));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAuthorReqeust $request)
+    public function store(StoreAuthorReqeust $request, FileStorageService $fileService)
     {
         $authorAttr = collect($request->only([
             'fullname',
@@ -31,7 +32,13 @@ class AuthorController
             'date_of_death'
         ]))->toArray();
 
-        return new AuthorResource(Author::create($authorAttr));
+         $author = Author::create($authorAttr);
+
+        if ($request->hasFile('images')) {
+            $fileService->uploadAll($request->file('images'), $author, 'images');
+        }
+
+        return new AuthorResource($author);
     }
 
     /**
