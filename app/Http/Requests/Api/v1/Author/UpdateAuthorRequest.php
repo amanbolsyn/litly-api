@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Api\v1\Author;
 
+use App\Rules\CheckOldImages;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAuthorRequest extends FormRequest
@@ -23,12 +24,18 @@ class UpdateAuthorRequest extends FormRequest
     {
         return [
             'fullname' => ['required', 'string'],
-            'biography' => ['string'],
-            'language' => ['array'],
-            'date_of_birth' => ['date'],
-            'date_of_death' => ['date'],
-            'portrait' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'biography' => ['nullable', 'string'],
+            'languages' => ['array'],
+            'languages.*' => ['nullable', 'string', 'distinct'],
+            'date_of_birth' => ['nullable', 'date'],
+            'date_of_death' => ['nullable', 'date'],
+            'images.portrait' => ['array', 'max:5'],
 
+            "images.portrait.old" => ["array", new CheckOldImages()],
+            "images.portrait.new"  => ["array"],
+
+            "images.portrait.old.*" => ['distinct'],
+            "images.portrait.new.*" => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Resources\Api\v1;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
-class PublisherResource extends JsonResource
+class FileResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +17,7 @@ class PublisherResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'publisher' => $this->publisher,
-            'logo' => FileResource::collection($this->files)
+            'path' => Storage::disk('s3')->url($this->path),
         ];
     }
 }

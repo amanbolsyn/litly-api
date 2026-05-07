@@ -23,7 +23,8 @@ class StorePublisherRequest extends FormRequest
     {
         return [
             'publisher' => ['required', 'string', 'unique:publishers,publisher'],
-            'logo' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'images.logo' => ['nullable', 'array', 'max:1'], 
+            'images.logo.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048']
         ];
     }
 }

@@ -22,12 +22,15 @@ class StoreAuthorReqeust extends FormRequest
     public function rules(): array
     {
         return [
-            'fullname' => ['required', 'string', 'max:127'],
-            'biography' => ['string'],
-            'language' => ['array', 'max:10'],
-            'date_of_birth' => ['date'],
-            'date_of_death' => ['date'],
-            'portrait' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            'fullname' => ['required', 'string'],
+            'biography' => ['nullable', 'string'],
+            'languages' => ['array'],
+            'languages.*' => ['nullable', 'string', 'distinct'],
+            'date_of_birth' => ['nullable', 'date'],
+            'date_of_death' => ['nullable', 'date'],
+        
+            'images.portrait' => ['array', 'max:5'],
+            'images.portrait.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }
