@@ -6,6 +6,7 @@ use App\Http\Requests\Api\v1\Author\UpdateAuthorRequest;
 use App\Http\Requests\Api\v1\Author\StoreAuthorReqeust;
 use App\Http\Resources\Api\v1\AuthorResource;
 use App\Models\Author;
+use App\Models\File;
 use App\Services\FileStorageService;
 use Illuminate\Http\Request;
 
@@ -27,15 +28,15 @@ class AuthorController
         $authorAttr = collect($request->only([
             'fullname',
             'biography',
-            'language',
+            'languages',
             'date_of_birth',
             'date_of_death'
         ]))->toArray();
 
-         $author = Author::create($authorAttr);
+        $author = Author::create($authorAttr);
 
-        if ($request->hasFile('images')) {
-            $fileService->uploadAll($request->file('images'), $author, 'images');
+        if ($request->hasFile('images.portrait')) {
+            $fileService->uploadAll($request->file('images.portrait'), $author, 'images');
         }
 
         return new AuthorResource($author);
@@ -46,13 +47,13 @@ class AuthorController
      */
     public function show(Author $author)
     {
-        return new AuthorResource($author);
+        return new AuthorResource($author->load('files'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(UpdateAuthorRequest $request, Author $author, FileStorageService $fileService)
     {
         $authorAttr = collect($request->only([
             'fullname',
@@ -62,16 +63,32 @@ class AuthorController
             'date_of_death'
         ]))->toArray();
 
-        $author->update($authorAttr); 
+        $author->update($authorAttr);
 
-        return new AuthorResource($author); 
+        $currentImages = $author->files()->pluck('id')->toArray();
+        $keptImages = collect($request->input('images.portrait.old'))->toArray();
+        $imagesToDelete = array_diff($currentImages, $keptImages);
+
+        if ($imagesToDelete) {
+            $images = $author->files()->whereIn('id', $imagesToDelete)->get()->toArray();
+            $fileService->deleteAll($images);
+            File::destroy($imagesToDelete);
+        }
+
+        if ($request->hasFile('images.portrait.new')) {
+            $fileService->uploadAll($request->file('images.portrait.new'), $author, 'images',);
+        }
+
+        return new AuthorResource($author->load('files'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author)
+    public function destroy(Author $author, FileStorageService $fileService)
     {
+
+        $fileService->deleteAll($author->files);
         $author->delete();
 
         return response()->json([
