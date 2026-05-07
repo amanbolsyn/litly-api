@@ -35,7 +35,7 @@ class Organization extends Model
         return $this->hasMany(User::class);
     }
 
-    public function logo(): MorphMany
+    public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable');
     }

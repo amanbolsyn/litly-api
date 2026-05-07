@@ -28,7 +28,9 @@ class UpdateOrganizationRequest extends FormRequest
             'allow_purchase' => ['required', 'boolean'],
             'allow_borrow' => ['required', 'boolean'],
             'allow_borrow_days' => ['required', 'integer'],
-            'logo' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
+            
+            'images.logo' => ['nullable', 'array', 'max:1'],
+            'images.logo.*' => ['image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ];
     }
 }

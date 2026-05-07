@@ -35,4 +35,8 @@ class FileStorageService
             $this->delete($path['path']); 
         }
     }
+
+    public function updateFiles(){ 
+        
+    }
 }

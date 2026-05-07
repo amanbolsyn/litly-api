@@ -22,7 +22,6 @@ return new class extends Migration
             $table->boolean('allow_purchase')->default(false);
             $table->boolean('allow_borrow')->default(false);
             $table->integer('allow_borrow_days')->default(14);
-            $table->string('logo')->nullable(); 
             $table->timestamps();
         });
 
