@@ -15,12 +15,9 @@ class PublisherResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'type' => 'publisher',
             'id' => $this->id,
-            'attributes' => [
-                'publisher' => $this->publisher,
-                'logo' => $this->logo
-            ]
+            'publisher' => $this->publisher,
+            'logo' => FileResource::collection($this->files)
         ];
     }
 }

@@ -36,7 +36,7 @@ class AuthorController
         $author = Author::create($authorAttr);
 
         if ($request->hasFile('images.portrait')) {
-            $fileService->uploadAll($request->file('images.portrait'), $author, 'images');
+            $fileService->uploadAll($request->file('images.portrait'), $author, 'authors');
         }
 
         return new AuthorResource($author);
@@ -76,7 +76,7 @@ class AuthorController
         }
 
         if ($request->hasFile('images.portrait.new')) {
-            $fileService->uploadAll($request->file('images.portrait.new'), $author, 'images',);
+            $fileService->uploadAll($request->file('images.portrait.new'), $author, 'authors',);
         }
 
         return new AuthorResource($author->load('files'));

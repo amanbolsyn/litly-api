@@ -20,7 +20,7 @@ class Publisher extends Model
         return $this->belongsToMany(Book::class);
     }
 
-    public function logo(): MorphMany
+    public function files(): MorphMany
     {
         return $this->morphMany(File::class, 'fileable');
     }
